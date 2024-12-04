@@ -4,6 +4,7 @@ This year I am comitting to completing Advent of Code 2024, and I've chosen to d
 
 <details>
 <summary>Day 1</summary>
+
 ## Day 1
 
 Day 1 was a breeze, as most Day 1 puzzles are. It did give me a good warmup, and made me excited for day 2.
@@ -12,6 +13,7 @@ Day 1 was a breeze, as most Day 1 puzzles are. It did give me a good warmup, and
 
 <details>
 <summary>Day 2</summary>
+
 ## Day 2
 
 Day 2 was much more challenging off the bat. The first part of the puzzle wasn't too bad, although I did get tripped up by one small typescript quirk. Since I'm used to python, I was trying to iterate over the contents of the reports using `for (var report in reports) {}`. However, I found that this did not work, and was giving me the index of the value instead. I just replaced it with `reports.forEach((report) => {});` and moved on, but it did trip me up for a minute.
