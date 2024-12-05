@@ -26,7 +26,7 @@ Shoutout to [this Reddit thread](<[url](https://www.reddit.com/r/adventofcode/co
 
 </details>
 
-<details open>
+<details>
 
 <summary>Day 3</summary>
 
@@ -47,5 +47,37 @@ As expected, sleep deprivation and regex don't mix well. I was able to get the r
 I was now able to get all of the values from within the `do` and `don't` blocks, but when entering my answer the value was too low. Re-reading the problem, I realized that any values before an instruction were to be treated as if they were within a `do` block. A better regexer might have been able to figure out how to plumb this all together into a single beautiful and horrible regex statement, but after trying for a bit I took the easier route of multiple validators. I created one that would match anything before a `do` or `don't` block (since once we've seen either once we can play by the other rules), and then another that would match within the `do` and `don't` blocks. I then just iterated over the matches and summed them up as before, breaking out some things into helpers as needed.
 
 I'm sure there is a more elegant solution, but I was happy to get this one working and move on to the next day.
+
+</details>
+
+<details open>
+<summary>Day 4</summary>
+
+## Day 4
+
+Day 4 was one of those days where the first part seemed so much harder than the second. The first part had be break out good old Depth-First Search (DFS) to try and solve it, while part two's scope was simple enough to just brute force it.
+
+### Part 1
+
+For part 1, it appeared pretty likely this was going to be a recursive DFS problem. It had all the hallmarks of a leetcode-style DFS question: a large grid of information to search, a clear goal, and the need to try many different directions. As I worked on it though, I realized a faux-DFS was going
+to be more than enough for this, since once we begin searching a direction we will always follow that same direction.
+
+I started by creating a recursive helper function that would take in the current coordinates and try out all the possible directions. I then tweaked it to actually only continue to search the direction we are currently going, as words aren't allowed to bend!
+By doing this, I was able to create a pretty simple solution that would begin by searching in all directions, and then each branch would continue out until it found "XMAS" or failed. I did add one small optimization, which was skipping over anything that wasn't an "X" to save time. I looked for
+some easy wins to optimize further, like potentially memoization, but considering each branch was a constant length with a constant solution, I didn't see a meaningful way to speed things up.
+
+I added some helper functions, classes, and enums as well to make the code more readable. Knowing I was potentially going into recursion-hell, I also thoroughly documented what each bit of code was doing to reference later if bugs arose. And bugs arose.
+
+My core implementation was fine actually, I was just caught by an off-by-one error. Trying to decipher that in the massive input was too difficult however, so I created a minimal reproduction for each direction instead, as was able to see that I was not actually
+doing any searches in the last column or row. I fixed this by changing my bounds to be `<=` instead of `<` and was able to get the correct answer.
+
+### Part 2
+
+With all of that recursion built up, I was sure I was going to need to use it again for part 2. However, the problem ended up being much simpler. We are looking for an X of "MAS", which had the key feature of always having an "A" in the middle.
+
+By realizing that, I actually was able to strip out all the recursion and just iterate over each character, and check if it was an "A". If it was, I could get the coordinates of the surrounding characters that made the X and just make sure they were
+the correct characters in one really big "if" statement. Significantly easier than my solution for part 1.
+
+Another day down, hopefully tomorrow doesn't bring more recursion! 😅
 
 </details>
