@@ -50,7 +50,7 @@ I'm sure there is a more elegant solution, but I was happy to get this one worki
 
 </details>
 
-<details open>
+<details>
 <summary>Day 4</summary>
 
 ## Day 4
@@ -79,5 +79,48 @@ By realizing that, I actually was able to strip out all the recursion and just i
 the correct characters in one really big "if" statement. Significantly easier than my solution for part 1.
 
 Another day down, hopefully tomorrow doesn't bring more recursion! 😅
+
+</details>
+
+<details open>
+<summary>Day 5</summary>
+
+## Day 5
+
+Day 5 was a tricky one. I realized pretty quickly how I wanted to approach the problem, but it opened me up to some difficulties later. This was definitely the most
+word-heavy problem so far, so I took notes at the top of my code to make sure I was hitting all of the key points and not missing things
+down the line, which proved helpful to not get off-track.
+
+### Part 1
+
+For part 1, things went fairly smoothly. I knew the steps I wanted to take immediately: get the rules into a dictionary to make looking up
+the rules easier, and get the page orders into a list of lists to iterate over.
+
+Once I had gotten that done, I decided the full dataset was going to be too overwhelming to use to test everything, so in addition to the puzzle input I was given, I took the
+example from the page to test with a small set of well-known solutions. This was a good idea, since the rules required enough complexity that smaller was definitely better.
+
+I then came up with my main solver function, which iterates over the list, and then backtracks over it to find if any pages are invalid. This definitely works, since all rules are
+covering what pages **must** come before others, but it is not the most efficient solution, I'm sure. I did add a small optimization that skips the backtracking for any number without
+a corresponding ruleset, but I'm sure there are more optimizations that could be made.
+
+I then iterated over the list, got the middle number of each valid list, and summed them up. I was happy to see that my solution worked on the first try, and I moved on to part 2.
+
+### Part 2
+
+Part 2 added the corresponding half to the problem: the first half dealt with the valid lists, so naturally the second half dealt with the invalid ones. I had set up my code mostly with
+the expectation that this was going to happen, so I had an easy spot to execute a new sorting function to deal with the invalid lists.
+
+The algorithm I used here was largely the same as checking for a valif list, but notibly two things changed:
+
+1. When backtracking, I was no longer stopped at the first invalid location. I needed the first location the page
+   would be valid to know where to insert it, so iteration continues until we find that valid spot (or the front of the list).
+2. When we find a value that needs to be moved, we pull it out and insert it at the location it would be valid.
+
+I initially had some trouble with point 2, as my head went to something like a bubble sort where we would swap the values. This was a bad idea though, because
+swapping them results in us moving things from valid positions and ultimately results in a different solution than the examples wanted.
+
+Using the examples as my test cases, I was able to (after quite a bit of debugging statements) identify the swap vs. insert problem, and fixed it. I ran the full dataset, and got the answer
+right on my next guess. I will say that the ending of the problem confused me a bit, as I wasn't sure if I was supposed to give the sum of all middle numbers,
+or just the sum of middle numbers from the previously invalid lists. Turns out it was the latter.
 
 </details>
