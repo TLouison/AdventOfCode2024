@@ -82,7 +82,7 @@ Another day down, hopefully tomorrow doesn't bring more recursion! 😅
 
 </details>
 
-<details open>
+<details>
 <summary>Day 5</summary>
 
 ## Day 5
@@ -122,5 +122,49 @@ swapping them results in us moving things from valid positions and ultimately re
 Using the examples as my test cases, I was able to (after quite a bit of debugging statements) identify the swap vs. insert problem, and fixed it. I ran the full dataset, and got the answer
 right on my next guess. I will say that the ending of the problem confused me a bit, as I wasn't sure if I was supposed to give the sum of all middle numbers,
 or just the sum of middle numbers from the previously invalid lists. Turns out it was the latter.
+
+</details>
+
+<details>
+<summary>Day 6+7</summary>
+
+## Day 6 + 7
+
+I worked on both days 6 and 7 on the same day because I wasn't able to spend time on Day 6 working on it. I got Day 7 completed, but
+Day 6 I could only do the first part. I may come back to it, but part two of day 6 is leaps and bounds harder than any other problem
+I've seen so far, so I don't think I'll have the time to dedicate to coming up with a solution. I'm skipping over adding my thoughts
+on these days past this as it was rushed and I didn't take good notes on my approach, so anything I write will be from foggy memory.
+
+</details>
+
+<details open>
+<summary>Day 8</summary>
+
+## Day 8
+
+Day 8 was a fun one! I was able to get both parts done in a reasonable amount of time, and I was able to get a good night's sleep before working on it. I think that helped a lot, as I was able to think through the problem more clearly.
+When I first read the problem, I thought it was going to be quite complex, but after thinking it over for a minute I realized a good data structure to hold
+the information that would make the problem very easy.
+
+I ran through the input and created a dictionary, with the network name as the key, and a set of
+nodes as the value. The nodes stored where there were on the grid (x,y), what network they belonged to, and what other nodes they were connected to. I realized
+this is a pretty straightforward graph question, and if we connected all of the network towers together within their respective networks, we could create
+bi-direction edges between all the towers that would tell us how far we need to travel to look for antinodes.
+
+### Part 1
+
+Part 1 used the data structure I mentioned above, and was able to easily solve the problem by going to each node in the network, looking at double the distance (since the anti-nodes)
+are equidistant from the nodes, and then making sure that node was on the grid and was not already an antinode. If it was, we would add it to a set of antinodes, and continue.
+
+This was a straightforward way to solve the problem and I got through it pretty quickly.
+
+### Part 2
+
+Part 2 shook it up a bit when it mentioned that we wanted all values on the line created by every set of two towers. This was a simple change, but I misread the problem and thought that
+we only created the line if EXACTLY two towers were on the line. I spent some time fiddling with modifications to the algorithm that would check if we hit another tower while searching, but
+once I re-read I realized my mistake and that we can have multiple towers on the same line.
+
+The only other bug I had was that I needed to remove the "distance times two" approach I was using originally to look for antinodes, as in this new problem the towers could also be
+antinodes, so we should start checking from the minimal distance away.
 
 </details>
