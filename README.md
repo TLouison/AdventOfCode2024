@@ -137,7 +137,7 @@ on these days past this as it was rushed and I didn't take good notes on my appr
 
 </details>
 
-<details open>
+<details>
 <summary>Day 8</summary>
 
 ## Day 8
@@ -166,5 +166,33 @@ once I re-read I realized my mistake and that we can have multiple towers on the
 
 The only other bug I had was that I needed to remove the "distance times two" approach I was using originally to look for antinodes, as in this new problem the towers could also be
 antinodes, so we should start checking from the minimal distance away.
+
+</details>
+
+<details open>
+<summary>Day 9</summary>
+
+## Day 8
+
+I enjoyed Day 9, even though I had some issues with understanding the question. It took me three tries to really get what the directions were telling me.
+
+My first attempt was trying to defragment the values, then multiply the value by the index that it is currently at. This was almost right, but I didn't understand how the file IDs were assigned, so my numbers were wildly wrong when I tried to generate the checksum.
+My second attempt was worse, thinking that the file ID was actually the index of the value _before_ it was defragmented. This meant I got an insanely wrong number because I was using all the wrong numbers in the checksum.
+My third attempt got it, and made a tweak to my initial attempt to properly set the file ID when parsing the input.
+
+### Part 1
+
+When I got the proper file ID, things mostly worked, and totally worked on the sample input. The full input gave a wrong answer though, and after a lot of debugging I realized the error: I
+was using a string the whole time, which meant double-digit IDs would be an issue because we would treat each digit as it's own file id. I had to pivot to using a number array-based solution, which
+handled the case of double-digit file IDs, and I was able to get the correct checksum.
+
+One other key thing I did that fixed a lot of my issues was that I did my loop iteration backwards, and ended my loop iteration after it passed the last free spot available. This was because if I
+let it run all the way to 0, we would begin swapping values to the end of the array instead of looking for the next free spot, which caused some bugs as well.
+
+### Part 2
+
+Part 2 was a pretty expected puzzle, and why I called the function `defrag` in the first place. This whole problem seemed like it was leading to using the empty spaces to fit the whole file, so I had been
+thinking of how to do it. Along with some rusty memories of doing something similar in an operating systems class, I basically just checked how large a block was, scanned from the beginning to find any opening
+with a block size greater or equal to that, and then swapped that value in.
 
 </details>
